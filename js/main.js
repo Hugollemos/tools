@@ -14,62 +14,104 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Número de categorias:', Object.keys(toolsByCategory).length);
 
     // Itera sobre cada categoria
-    for (const [category, tools] of Object.entries(toolsByCategory)) {
-        console.log('Processando categoria:', category, 'com', tools.length, 'ferramentas');
+    for (const [category, subcategories] of Object.entries(toolsByCategory)) {
+        console.log('Processando categoria:', category);
 
-        // Criar o container da aba
-        const tabContainer = document.createElement('div');
-        tabContainer.className = 'tab-container';
+        // Criar o container da categoria
+        const categoryContainer = document.createElement('div');
+        categoryContainer.className = 'category-container';
 
-        // Criar o item da aba
-        const tabItem = document.createElement('div');
-        tabItem.className = 'tab-item';
-        tabItem.innerHTML = `<i class="fas fa-folder"></i> ${category}`;
+        // Criar o item da categoria
+        const categoryItem = document.createElement('div');
+        categoryItem.className = 'category-item';
+        categoryItem.innerHTML = `<i class="fas fa-folder"></i> ${category}`;
 
-        // Criar a lista de ferramentas
-        const toolsList = document.createElement('div');
-        toolsList.className = 'tools-list';
+        // Criar o container de subcategorias
+        const subcategoriesContainer = document.createElement('div');
+        subcategoriesContainer.className = 'subcategories-container';
 
-        // Adiciona cada ferramenta da categoria
-        tools.forEach(tool => {
-            const toolItem = document.createElement('div');
-            toolItem.className = 'tool-item';
-            toolItem.innerHTML = `
-                <i class="${tool.icon}"></i>
-                <span>${tool.name}</span>
-            `;
+        // Itera sobre cada subcategoria
+        for (const [subcategory, tools] of Object.entries(subcategories)) {
+            console.log('Processando subcategoria:', subcategory, 'com', tools.length, 'ferramentas');
 
-            // Adicionar evento de clique para mostrar detalhes da ferramenta
-            toolItem.addEventListener('click', function() {
-                showToolDetails(tool);
+            // Criar o container da subcategoria
+            const subcategoryContainer = document.createElement('div');
+            subcategoryContainer.className = 'subcategory-container';
+
+            // Criar o item da subcategoria
+            const subcategoryItem = document.createElement('div');
+            subcategoryItem.className = 'subcategory-item';
+            subcategoryItem.innerHTML = `<i class="fas fa-folder-open"></i> ${subcategory}`;
+
+            // Criar a lista de ferramentas
+            const toolsList = document.createElement('div');
+            toolsList.className = 'tools-list';
+
+            // Adiciona cada ferramenta da subcategoria
+            tools.forEach(tool => {
+                const toolItem = document.createElement('div');
+                toolItem.className = 'tool-item';
+                toolItem.innerHTML = `
+                    <i class="${tool.icon}"></i>
+                    <span>${tool.name}</span>
+                `;
+
+                // Adicionar evento de clique para mostrar detalhes da ferramenta
+                toolItem.addEventListener('click', function() {
+                    showToolDetails(tool);
+                });
+
+                toolsList.appendChild(toolItem);
             });
 
-            toolsList.appendChild(toolItem);
-        });
+            // Adicionar evento de clique para expandir/recolher a lista de ferramentas
+            subcategoryItem.addEventListener('click', function() {
+                // Fechar todas as outras listas de ferramentas
+                document.querySelectorAll('.tools-list').forEach(list => {
+                    if (list !== toolsList) {
+                        list.classList.remove('visible');
+                    }
+                });
 
-        // Adicionar evento de clique para expandir/recolher a lista de ferramentas
-        tabItem.addEventListener('click', function() {
-            // Fechar todas as outras listas
-            document.querySelectorAll('.tools-list').forEach(list => {
-                if (list !== toolsList) {
-                    list.classList.remove('visible');
+                // Alternar a visibilidade da lista atual
+                toolsList.classList.toggle('visible');
+
+                // Alternar a classe active da subcategoria
+                document.querySelectorAll('.subcategory-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                subcategoryItem.classList.add('active');
+            });
+
+            // Adicionar elementos ao DOM
+            subcategoryContainer.appendChild(subcategoryItem);
+            subcategoryContainer.appendChild(toolsList);
+            subcategoriesContainer.appendChild(subcategoryContainer);
+        }
+
+        // Adicionar evento de clique para expandir/recolher as subcategorias
+        categoryItem.addEventListener('click', function() {
+            // Fechar todas as outras subcategorias
+            document.querySelectorAll('.subcategories-container').forEach(container => {
+                if (container !== subcategoriesContainer) {
+                    container.classList.remove('visible');
                 }
             });
 
-            // Alternar a visibilidade da lista atual
-            toolsList.classList.toggle('visible');
+            // Alternar a visibilidade das subcategorias
+            subcategoriesContainer.classList.toggle('visible');
 
-            // Alternar a classe active da aba
-            document.querySelectorAll('.tab-item').forEach(item => {
+            // Alternar a classe active da categoria
+            document.querySelectorAll('.category-item').forEach(item => {
                 item.classList.remove('active');
             });
-            tabItem.classList.add('active');
+            categoryItem.classList.add('active');
         });
 
         // Adicionar elementos ao DOM
-        tabContainer.appendChild(tabItem);
-        tabContainer.appendChild(toolsList);
-        tabsList.appendChild(tabContainer);
+        categoryContainer.appendChild(categoryItem);
+        categoryContainer.appendChild(subcategoriesContainer);
+        tabsList.appendChild(categoryContainer);
     }
 
     console.log('Renderização concluída');
