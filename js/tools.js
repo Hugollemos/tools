@@ -26,40 +26,7 @@ const toolsByCategory = {
                 link: "https://github.com/aquasecurity/trivy/",
                 icon: "fa-solid fa-face-smile"
             },
-            {
-                name: "Open Policy Agent",
-                description: "Open Policy Agent (OPA) is an open source, general-purpose policy engine that enables unified, context-aware policy enforcement across the entire stack.",
-                link: "https://github.com/open-policy-agent/opa/",
-                icon: "fa-solid fa-comment"
-            },
-            {
-                name: "Conftest",
-                description: "Conftest helps you write tests against structured configuration data. Using Conftest you can write tests for your Kubernetes configuration, Tekton pipeline definitions, Terraform code, Serverless configs or any other config files.",
-                link: "https://github.com/open-policy-agent/conftest/",
-                icon: "fa-solid fa-envelope"
-            },
-            {
-                name: "Gitleaks",
-                description: "Gitleaks is a tool for detecting secrets like passwords, API keys, and tokens in git repos, files, and whatever else you wanna throw at it via stdin.",
-                link: "https://github.com/gitleaks/gitleaks/",
-                icon: "fa-solid fa-circle-user"
-            },
-            {
-                name: "Keyscope",
-                description: "Keyscope is a key and secret workflow (validation, invalidation, etc.) tool built in Rust, powered by service_policy_kit.",
-                link: "https://github.com/SpectralOps/keyscope/",
-                icon: "fa-solid fa-file"
-            }
         ],
-        "Static Analysis and Code Quality": [
-            
-        ],
-        "Políticas e Conformidade": [
-            
-        ],
-        "Detecção de Segredos": [
-            
-        ]
     },
     "Bash": {
         "em breve": [
